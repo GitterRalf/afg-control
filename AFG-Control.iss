@@ -53,6 +53,8 @@ Source: "build\platforms\*.dll"; DestDir: "{app}\platforms"; Flags: ignoreversio
 Source: "build\styles\*.dll"; DestDir: "{app}\styles"; Flags: ignoreversion
 Source: "build\tls\*.dll"; DestDir: "{app}\tls"; Flags: ignoreversion
 Source: "LICENSE"; DestDir: "{app}"; Flags: ignoreversion
+Source: "THIRD-PARTY-NOTICES.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "licenses\*.txt"; DestDir: "{app}\licenses"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#AfgName}"; Filename: "{app}\{#AfgExe}"; WorkingDir: "{app}"

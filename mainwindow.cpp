@@ -617,6 +617,10 @@ void MainWindow::createMenus()
     localized(about->addAction(QString(), this, &MainWindow::showAbout), QT_TR_NOOP("Über"), &QAction::setText)->setObjectName("aboutApplication");
     localized(about->addAction(QString(), this, [this] { QMessageBox::aboutQt(this, tr("Über Qt")); }),
               QT_TR_NOOP("Über Qt"), &QAction::setText)->setObjectName("aboutQt");
+    about->addSeparator();
+    updateAction = localized(about->addAction(QString(), this, &MainWindow::checkForUpdates),
+                             QT_TR_NOOP("Nach Updates suchen"), &QAction::setText);
+    updateAction->setObjectName("checkForUpdates");
     bar->setCornerWidget(right, Qt::TopRightCorner);
 }
 

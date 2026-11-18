@@ -28,6 +28,8 @@ Die Menüzeile enthält Datei mit Beenden, Einstellungen mit GPIB-Verbindung, He
 
 Strg+S speichert Eingaben, gewählte Einheiten, GPIB-Ziel und Darstellung im eigenen Benutzerbereich Tralow/AFG-Control. Die Sprachwahl wird sofort gespeichert. Ein Neustart stellt die Eingabefelder wieder her. Das Gerät wird erst nach Verbinden und den jeweiligen Bedienaktionen angesteuert.
 
+Unter **Über → Nach Updates suchen** lässt sich das neueste stabile GitHub-Release manuell abfragen. Bei einem privaten Repository benötigt die Abfrage die [GitHub CLI](https://cli.github.com/) und ein bereits per `gh auth login` angemeldetes Konto mit Zugriff auf das Repository. Bei einer neueren Version öffnet die Schaltfläche die Release-Seite im Browser.
+
 ## Build
 
 Qt 6 mit Widgets und Linguist Tools, CMake und das passende 64-Bit-MinGW-Kit werden benötigt.
@@ -40,4 +42,4 @@ Das Build-Skript benötigt CMake ab 3.24 und baut über eine temporäre Windows-
 
 Qt-Kit und Compilerpfad lassen sich über die Parameter QtKit und CompilerDirectory des Skripts anpassen.
 
-Die GPIB-Anbindung und Gestaltung übernehmen Bausteine der vorhandenen Geräteprogramme. Lizenz siehe LICENSE. Die Software wurde mit einer simulierten GPIB-Verbindung und anhand der Handbuchbefehle geprüft. Die Verbindung zum physischen AFG ist noch zu prüfen.
+Die GPIB-Anbindung und Gestaltung übernehmen Bausteine der vorhandenen Geräteprogramme. Der AFG-Quellcode und das animierte OsciViewer-Logo von Ralf Tralow stehen unter der [MIT-Lizenz](LICENSE). Hinweise zu den mitgelieferten Bibliotheken stehen in [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt). Die Software wurde mit einer simulierten GPIB-Verbindung und anhand der Handbuchbefehle geprüft. Die Verbindung zum physischen AFG ist noch zu prüfen.

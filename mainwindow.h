@@ -65,6 +65,9 @@ private:
     void installLanguage(const QString &code);
     void changeLanguage(const QString &code);
     void showAbout();
+    void checkForUpdates();
+    void checkPrivateRelease();
+    void finishUpdateCheck(const QByteArray &data, const QString &error = {});
     void loadSettings();
     void saveSettings();
     void updateControls();
@@ -99,6 +102,7 @@ private:
 
     QTabWidget *tabs;
     QAction *connectionAction;
+    QAction *updateAction;
     QMenu *languageMenu = nullptr;
     QLabel *connectionLabel;
     QLabel *outputLabel;

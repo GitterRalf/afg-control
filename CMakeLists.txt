@@ -3,17 +3,17 @@ project(AFG-Control LANGUAGES CXX RC)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-find_package(Qt6 6.4 REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Widgets Network LinguistTools)
 qt_standard_project_setup()
 set(QT_I18N_SOURCE_LANGUAGE de)
 set(CMAKE_AUTORCC ON)
 
 qt_add_executable(AFG-Control WIN32
-    main.cpp mainwindow.cpp mainwindow.h
+    main.cpp mainwindow.cpp mainwindow.h updates.cpp
     afg.cpp afg.h gpib.cpp gpib.h version.h
     assets/app.qrc assets/app.rc
 )
-target_link_libraries(AFG-Control PRIVATE Qt6::Widgets)
+target_link_libraries(AFG-Control PRIVATE Qt6::Widgets Qt6::Network)
 target_include_directories(AFG-Control PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/assets")
 target_compile_definitions(AFG-Control PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
 if(MSVC)
