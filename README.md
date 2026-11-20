@@ -2,6 +2,16 @@
 
 Windows-Anwendung zur Steuerung des Rohde & Schwarz Function Generator AFG 377.2100.02 über NI-488.2. Die Bedienung und Befehle folgen dem „AFG Betriebshandbuch.pdf“ im Projektordner, insbesondere den Abschnitten 2.3 und 2.4 sowie Bild 2-37 auf PDF-Seite 122.
 
+## Bildschirmaufnahmen
+
+**Helle Darstellung**
+
+![AFG Control in heller Darstellung mit geöffnetem Signal-Reiter](docs/screenshots/afg-hell.png)
+
+**Dunkle Darstellung**
+
+![AFG Control in dunkler Darstellung mit geöffnetem Signal-Reiter](docs/screenshots/afg-dunkel.png)
+
 ## Start und Verbindung
 
 build\AFG-Control.exe starten. Unter Einstellungen → Verbindung sind GPIB-Bus 0 und Primäradresse 12 voreingestellt. Die am AFG eingestellte Adresse muss dazu passen. Der Hardwarebetrieb benötigt den installierten 64-Bit-NI-488.2-Treiber und einen zugehörigen GPIB-Controller.
