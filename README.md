@@ -4,13 +4,9 @@ Windows-Anwendung zur Steuerung des Rohde & Schwarz Function Generator AFG 377.2
 
 ## Bildschirmaufnahmen
 
-**Helle Darstellung**
-
-![AFG Control in heller Darstellung mit geöffnetem Signal-Reiter](docs/screenshots/afg-hell.png)
-
-**Dunkle Darstellung**
-
-![AFG Control in dunkler Darstellung mit geöffnetem Signal-Reiter](docs/screenshots/afg-dunkel.png)
+| Hell | Dunkel |
+| --- | --- |
+| <a href="docs/screenshots/afg-hell.png"><img src="docs/screenshots/afg-hell.png" alt="AFG Control in heller Darstellung mit ge&#246;ffnetem Signal-Reiter" width="400"></a> | <a href="docs/screenshots/afg-dunkel.png"><img src="docs/screenshots/afg-dunkel.png" alt="AFG Control in dunkler Darstellung mit ge&#246;ffnetem Signal-Reiter" width="400"></a> |
 
 ## Start und Verbindung
 
