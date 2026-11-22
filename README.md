@@ -2,6 +2,8 @@
 
 Windows-Anwendung zur Steuerung des Rohde & Schwarz Function Generator AFG 377.2100.02 über NI-488.2. Die Bedienung und Befehle folgen dem „AFG Betriebshandbuch.pdf“ im Projektordner, insbesondere den Abschnitten 2.3 und 2.4 sowie Bild 2-37 auf PDF-Seite 122.
 
+Entwickelt und gepflegt von Ralf Tralow mit Unterstützung von OpenAI Codex.
+
 ## Bildschirmaufnahmen
 
 | Hell | Dunkel |
