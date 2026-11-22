@@ -9,11 +9,24 @@
 #define IconResource FileOpen(SourcePath + "assets\app.rc")
 #define AfgIcon ReadQuoted(FileRead(IconResource))
 #expr FileClose(IconResource)
-#define AfgName "AFG Control"
+#ifndef BuildArch
+  #define BuildArch "x64"
+#endif
+#if BuildArch == "x86"
+  #define AfgName "AFG Control (32 Bit)"
+  #define DeviceAppId "{{B8AEA975-FB78-5203-AF7B-E9D9968E8D09}"
+  #define DeviceBuildDir "build-x86"
+#elif BuildArch == "x64"
+  #define AfgName "AFG Control"
+  #define DeviceAppId "{{5A3A7304-A491-4D92-A564-E4080EE52973}"
+  #define DeviceBuildDir "build"
+#else
+  #error BuildArch must be x86 or x64.
+#endif
 #define AfgExe "AFG-Control.exe"
 
 [Setup]
-AppId={{5A3A7304-A491-4D92-A564-E4080EE52973}
+AppId={#DeviceAppId}
 AppName={#AfgName}
 AppVersion={#AfgVersion}
 AppVerName={#AfgName} {#AfgVersion}
@@ -24,13 +37,17 @@ DefaultDirName={pf}\{#AfgName}
 DefaultGroupName={#AfgName}
 AllowNoIcons=yes
 PrivilegesRequired=admin
+#if BuildArch == "x64"
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
+#else
+ArchitecturesAllowed=x86 x64
+#endif
 ; Inno 5.3.5 can see modern Windows as 6.2 due to its legacy manifest.
 SetupIconFile=assets\{#AfgIcon}
 UninstallDisplayIcon={app}\{#AfgExe}
 OutputDir=installer
-OutputBaseFilename=AFG-Control-Setup-{#AfgVersion}-x64
+OutputBaseFilename=AFG-Control-Setup-{#AfgVersion}-{#BuildArch}
 Compression=lzma
 SolidCompression=yes
 
@@ -43,15 +60,19 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Flags: unchecked
 
 [Files]
-Source: "build\{#AfgExe}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "build\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "build\generic\*.dll"; DestDir: "{app}\generic"; Flags: ignoreversion
-Source: "build\iconengines\*.dll"; DestDir: "{app}\iconengines"; Flags: ignoreversion
-Source: "build\imageformats\*.dll"; DestDir: "{app}\imageformats"; Flags: ignoreversion
-Source: "build\networkinformation\*.dll"; DestDir: "{app}\networkinformation"; Flags: ignoreversion
-Source: "build\platforms\*.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
-Source: "build\styles\*.dll"; DestDir: "{app}\styles"; Flags: ignoreversion
-Source: "build\tls\*.dll"; DestDir: "{app}\tls"; Flags: ignoreversion
+#if BuildArch == "x86"
+Source: "{#DeviceBuildDir}\qt.conf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#DeviceBuildDir}\bearer\*.dll"; DestDir: "{app}\bearer"; Flags: ignoreversion skipifsourcedoesntexist
+#endif
+Source: "{#DeviceBuildDir}\{#AfgExe}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#DeviceBuildDir}\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#DeviceBuildDir}\generic\*.dll"; DestDir: "{app}\generic"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "{#DeviceBuildDir}\iconengines\*.dll"; DestDir: "{app}\iconengines"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "{#DeviceBuildDir}\imageformats\*.dll"; DestDir: "{app}\imageformats"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "{#DeviceBuildDir}\networkinformation\*.dll"; DestDir: "{app}\networkinformation"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "{#DeviceBuildDir}\platforms\*.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
+Source: "{#DeviceBuildDir}\styles\*.dll"; DestDir: "{app}\styles"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "{#DeviceBuildDir}\tls\*.dll"; DestDir: "{app}\tls"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "THIRD-PARTY-NOTICES.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "licenses\*.txt"; DestDir: "{app}\licenses"; Flags: ignoreversion

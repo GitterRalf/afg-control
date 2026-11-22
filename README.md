@@ -10,7 +10,7 @@ Windows-Anwendung zur Steuerung des Rohde & Schwarz Function Generator AFG 377.2
 
 ## Start und Verbindung
 
-build\AFG-Control.exe starten. Unter Einstellungen → Verbindung sind GPIB-Bus 0 und Primäradresse 12 voreingestellt. Die am AFG eingestellte Adresse muss dazu passen. Der Hardwarebetrieb benötigt den installierten 64-Bit-NI-488.2-Treiber und einen zugehörigen GPIB-Controller.
+build\AFG-Control.exe starten. Unter Einstellungen → Verbindung sind GPIB-Bus 0 und Primäradresse 12 voreingestellt. Die am AFG eingestellte Adresse muss dazu passen. Der Hardwarebetrieb benötigt den installierten NI-488.2-Treiber mit Unterstützung für die Programmarchitektur und einen zugehörigen GPIB-Controller.
 
 Verbinden aktiviert die Fernsteuerung und richtet TRANSFERMODE(2) sowie SRQ für Fertigmeldung, Fehler und Überspannung ein. Signalparameter werden mit „Einstellungen übertragen“ gesendet. „Ausgang ein“ und „Ausgang aus“ schalten den Ausgang gezielt. Trennen und Schließen geben das Gerät an die lokale Bedienung zurück.
 
@@ -38,14 +38,30 @@ Unter **Über → Nach Updates suchen** lässt sich das neueste stabile GitHub-R
 
 ## Build
 
-Qt 6 mit Widgets und Linguist Tools, CMake und das passende 64-Bit-MinGW-Kit werden benötigt.
+Qt 6 (x64) oder Qt 5.15 (x86) mit Widgets und Linguist Tools, CMake und das passende MinGW-Kit für die gewählte Architektur werden benötigt.
 
 Das Build-Skript benötigt CMake ab 3.24 und baut über eine temporäre Windows-Verzeichnisverknüpfung ohne Umlaut, damit die Qt/MinGW-Werkzeuge den Projektpfad verarbeiten können. Quellen und Ergebnis liegen im AFG-Verzeichnis.
 
 ~~~powershell
-.\build.ps1
+.\build.ps1                    # x64
+.\build.ps1 -Architecture x86  # x86
 ~~~
 
 Qt-Kit und Compilerpfad lassen sich über die Parameter QtKit und CompilerDirectory des Skripts anpassen.
 
 Die GPIB-Anbindung und Gestaltung übernehmen Bausteine der vorhandenen Geräteprogramme. Der AFG-Quellcode und das animierte OsciViewer-Logo von Ralf Tralow stehen unter der [MIT-Lizenz](LICENSE). Hinweise zu den mitgelieferten Bibliotheken stehen in [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt). Die Software wurde mit einer simulierten GPIB-Verbindung und anhand der Handbuchbefehle geprüft. Die Verbindung zum physischen AFG ist noch zu prüfen.
+
+### Windows-Architekturen
+
+Die x86-Ausgabe verwendet Qt 5.15.19 mit MinGW 8.1 und hat einen eigenen
+Installationsordner **AFG Control (32 Bit)**. Auf 64-Bit-Windows können beide
+Ausgaben parallel installiert werden. Die x64-Ausgabe verwendet weiterhin
+Qt 6 und ist beim Build der Standard.
+
+Der Build für x86 nutzt `build-x86`, der Build für x64 den Ordner `build`.
+Die Installer entstehen im Projektordner mit folgenden Aufrufen.
+
+```powershell
+ISCC.exe AFG-Control.iss
+ISCC.exe /DBuildArch=x86 AFG-Control.iss
+```

@@ -180,7 +180,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), instrument(new Af
 
     loadSettings();
     for (auto *input : tabs->findChildren<QComboBox *>()) {
-        connect(input, &QComboBox::currentIndexChanged, this, &MainWindow::updateControls);
+        connect(input, qOverload<int>(&QComboBox::currentIndexChanged), this, &MainWindow::updateControls);
     }
     for (auto *input : tabs->findChildren<QCheckBox *>()) {
         connect(input, &QCheckBox::toggled, this, &MainWindow::updateControls);
@@ -264,7 +264,7 @@ QHBoxLayout *MainWindow::unitField(ScientificSpinBox *input, Unit type, std::fun
     unit->setObjectName(input->objectName() + QStringLiteral("Unit"));
     unit->addItem(frequencyUnits ? QStringLiteral("Hz") : QStringLiteral("V"), 1.0);
     unit->addItem(frequencyUnits ? QStringLiteral("MHz") : QStringLiteral("mV"), frequencyUnits ? 1e-6 : 1e3);
-    connect(unit, &QComboBox::currentIndexChanged, input, [input, unit] {
+    connect(unit, qOverload<int>(&QComboBox::currentIndexChanged), input, [input, unit] {
         input->setDisplayScale(unit->currentData().toDouble());
     });
     auto updateAccessibleName = [unit, fieldName = std::move(fieldName)] {
@@ -349,7 +349,7 @@ void MainWindow::createSignalPage()
     row(pulseForm, QT_TR_NOOP("Abfallzeit"), fall);
     row(pulseForm, QT_TR_NOOP("Pulszahl"), pulseCount);
     row(pulseForm, QT_TR_NOOP("Abstand der Pulsflanken"), delay);
-    connect(pulseCount, &QDoubleSpinBox::valueChanged, this, &MainWindow::updateControls);
+    connect(pulseCount, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &MainWindow::updateControls);
 }
 
 void MainWindow::createTimingPage()
@@ -572,7 +572,7 @@ void MainWindow::createMenus()
     auto *bar = menuBar();
     bar->setNativeMenuBar(false);
     auto *file = localized(bar->addMenu(QString()), QT_TR_NOOP("&Datei"), &QMenu::setTitle);
-    localized(file->addAction(QString(), QKeySequence::Quit, this, &QWidget::close),
+    localized(file->addAction(QString(), this, &QWidget::close, QKeySequence::Quit),
               QT_TR_NOOP("&Beenden"), &QAction::setText);
     auto *settings = localized(bar->addMenu(QString()), QT_TR_NOOP("&Einstellungen"), &QMenu::setTitle);
     settings->setObjectName("settingsMenu");
@@ -590,7 +590,7 @@ void MainWindow::createMenus()
         connect(action, &QAction::triggered, this, [this, dark] { setDarkTheme(dark); });
     }
     settings->addSeparator();
-    localized(settings->addAction(QString(), QKeySequence::Save, this, &MainWindow::saveSettings),
+    localized(settings->addAction(QString(), this, &MainWindow::saveSettings, QKeySequence::Save),
               QT_TR_NOOP("Einstellungen speichern"), &QAction::setText)->setObjectName("saveSettings");
 
     auto *right = new QMenuBar(bar);
